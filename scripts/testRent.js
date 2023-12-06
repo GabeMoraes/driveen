@@ -11,7 +11,7 @@ async function main() {
     const rentContract2 = await ethers.getContractAt(
         "Rent",
         "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9",
-        signer1
+        signer2
         );
 
     /* await rentContract2.registerDriver(
