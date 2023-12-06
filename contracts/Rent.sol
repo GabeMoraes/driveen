@@ -19,7 +19,8 @@ contract Rent {
         string birth;
         string license;
         string name;
-        string[] phoneNumber;
+        string[] phoneNumbers;
+        Car rented;
     }
 
     constructor() {
@@ -53,10 +54,23 @@ contract Rent {
             "Only drivers can register themselves"
         );
 
-        Driver memory newDriver = Driver(_birth,_license,_name,_phoneNumbers);
+        Driver memory newDriver;
+        newDriver.birth = _birth;
+        newDriver.license = _license;
+        newDriver.name = _name;
+        newDriver.phoneNumbers = _phoneNumbers;
         drivers[msg.sender] = newDriver;
     }
 
+    function getCar(string calldata _licensePlate) external view returns (Car memory) {
+        require(
+            msg.sender == rentalCompany,
+            "Only the company can check cars"
+        );
+
+        return cars[_licensePlate];
+    }
+    
     function getDriver(address _driverAddress) external view returns (Driver memory) {
         require(
             msg.sender == rentalCompany,
@@ -68,5 +82,9 @@ contract Rent {
     
     function getSelf() external view returns (Driver memory) {
         return drivers[msg.sender];
+    }
+
+    function rent(address _driverAddress, string calldata _licensePlate) external {
+        //todo
     }
 }
