@@ -5,6 +5,7 @@ contracts/Simple.sol
 node_modules
 scripts/deploy.js
 scripts/test.js
+scripts/testRent.js
 scripts/testSimple.js
 test/Lock.js
 hardhat.md
