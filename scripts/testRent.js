@@ -14,15 +14,15 @@ async function main() {
         signer1
         );
 
-    /* await rentContract.registerDriver(
-        "10/10/1990",
-        "12.345.678-9",
-        "John Smith",
+     await rentContract2.registerDriver(
+        "12/12/1992",
+        "12.345.678-8",
+        "Mary Smith",
         [
             "(21)93344-5566",
             "(21)95566-7788"
         ]
-    ); */
+    ); 
 
     console.log(await rentContract1.getSelf());
 
@@ -38,8 +38,9 @@ async function main() {
 
     console.log(await rentContract1.getCar("ABC-1234"));
 
-    await rentContract2
+    await rentContract2.rent(signer1.address,"ABC-1234");
 
+    console.log(await rentContract2.getSelf());
 }
 
 main().catch((error) => {

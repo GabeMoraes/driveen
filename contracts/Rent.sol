@@ -87,12 +87,17 @@ contract Rent {
         return drivers[msg.sender];
     }
 
-    function rent(address _driverAddress, string calldata _licensePlate) external {
+    function rent(string calldata _licensePlate) external {
         require(
-            drivers[_driverAddress].exists == true && cars[_licensePlate].exists == true,
+            msg.sender != rentalCompany,
+            "Only drivers can rent cars"
+        );
+        
+        require(
+            drivers[msg.sender].exists == true && cars[_licensePlate].exists == true,
             "Driver/car must register before rent"
         );
 
-        drivers[_driverAddress].rented = cars[_licensePlate];
+        drivers[msg.sender].rented = cars[_licensePlate];
     }
 }
