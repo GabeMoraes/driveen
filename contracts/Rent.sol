@@ -85,6 +85,6 @@ contract Rent {
     }
 
     function rent(address _driverAddress, string calldata _licensePlate) external {
-        //todo
+        drivers[_driverAddress].rented = cars[_licensePlate];
     }
 }
