@@ -13,6 +13,7 @@ contract Rent {
         string manufacturer;
         string model;
         uint32 year;
+        bool exists;
     }
 
     struct Driver {
@@ -20,6 +21,7 @@ contract Rent {
         string license;
         string name;
         string[] phoneNumbers;
+        bool exists;
         Car rented;
     }
 
@@ -39,7 +41,7 @@ contract Rent {
             "Only the company can register cars"
         );
 
-        Car memory newCar = Car(_chassisNumber,_licensePlate,_manufacturer,_model,_year);
+        Car memory newCar = Car(_chassisNumber,_licensePlate,_manufacturer,_model,_year,true);
         cars[_licensePlate] = newCar;
     }
     
@@ -59,6 +61,7 @@ contract Rent {
         newDriver.license = _license;
         newDriver.name = _name;
         newDriver.phoneNumbers = _phoneNumbers;
+        newDriver.exists = true;
         drivers[msg.sender] = newDriver;
     }
 
@@ -85,6 +88,11 @@ contract Rent {
     }
 
     function rent(address _driverAddress, string calldata _licensePlate) external {
+        require(
+            drivers[_driverAddress].exists == true && cars[_licensePlate].exists == true,
+            "Driver/car must register before rent"
+        );
+
         drivers[_driverAddress].rented = cars[_licensePlate];
     }
 }
