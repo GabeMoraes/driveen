@@ -105,4 +105,14 @@ contract Rent {
 
         drivers[msg.sender].rented = cars[_licensePlate];
     }
+
+    function returnCar() external {
+        require(
+            drivers[msg.sender].rented.exists == true,
+            "Driver must rent a car before returning it"
+        );
+
+        Car memory _nullCar;
+        drivers[msg.sender].rented = _nullCar;
+    }
 }
