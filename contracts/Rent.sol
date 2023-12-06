@@ -56,6 +56,11 @@ contract Rent {
             "Only drivers can register themselves"
         );
 
+        require(
+            drivers[msg.sender].exists == false,
+            "Driver with this address is already registered"
+        );
+
         Driver memory newDriver;
         newDriver.birth = _birth;
         newDriver.license = _license;
