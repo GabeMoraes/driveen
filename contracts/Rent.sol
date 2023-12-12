@@ -87,6 +87,10 @@ contract Rent {
 
         return drivers[_driverAddress];
     }
+
+    function getCompany() external view returns (address) {
+        return rentalCompany;
+    }
     
     function getSelf() external view returns (Driver memory) {
         return drivers[msg.sender];
