@@ -4,8 +4,9 @@ require("@nomicfoundation/hardhat-ethers");
 /** @type import('hardhat/config').HardhatUserConfig */
 module.exports = {
   solidity: "0.8.19",
-  defaultNetwork: "localhost",
   networks: {
-    localhost: {}
+    hardhat: {
+      "chainId" : 1337
+    }
   }
 };
