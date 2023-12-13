@@ -6,6 +6,8 @@ contract Rent {
     address public rentalCompany;
     mapping(address => Driver) public drivers;
     mapping(string => Car) public cars;
+    Car[] public carArray;
+    Driver[] public driverArray;
 
     struct Car {
         string chassisNumber;
@@ -43,6 +45,7 @@ contract Rent {
 
         Car memory newCar = Car(_chassisNumber,_licensePlate,_manufacturer,_model,_year,true);
         cars[_licensePlate] = newCar;
+        carArray.push(newCar);
     }
     
     function registerDriver(
@@ -68,6 +71,7 @@ contract Rent {
         newDriver.phoneNumbers = _phoneNumbers;
         newDriver.exists = true;
         drivers[msg.sender] = newDriver;
+        driverArray.push(newDriver);
     }
 
     function getCar(string calldata _licensePlate) external view returns (Car memory) {
@@ -77,6 +81,14 @@ contract Rent {
         );
 
         return cars[_licensePlate];
+    }
+
+    function getCars() external view returns (Car[] memory) {
+        return carArray;
+    }
+
+    function getCompany() external view returns (address) {
+        return rentalCompany;
     }
     
     function getDriver(address _driverAddress) external view returns (Driver memory) {
@@ -88,8 +100,8 @@ contract Rent {
         return drivers[_driverAddress];
     }
 
-    function getCompany() external view returns (address) {
-        return rentalCompany;
+    function getDrivers() external view returns (Driver[] memory) {
+        return driverArray;
     }
     
     function getSelf() external view returns (Driver memory) {
